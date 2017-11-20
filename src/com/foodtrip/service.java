@@ -9,8 +9,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -22,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/")
 public class service {
 	private ServiceHandler s;
+	int count = 0;
 	public service() {
 		s = new ServiceHandler();
 	}
@@ -64,4 +69,35 @@ public class service {
 		return s.getFavRest(origin,dest,2,rest);
 	}
 	
+	@GET
+	@Path("favorites")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getFavRestL() {
+		return s.getFavRestList();
+	}
+	
+	@POST
+	@Path("favorites/create")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String setFavRest(String data) {
+		s.addToFavRestList(data);
+		return "Added successfully";
+	}
+	
+	@PUT
+	@Path("favorites/update")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateFavRest(String data) {
+		return s.updateFavRest(data);
+	}
+	
+	@DELETE
+	@Path("favorites/delete/{id}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteFavRest(@PathParam("id") int id) {
+		return s.deleteFavRest(id);
+	}
 }

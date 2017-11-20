@@ -3,11 +3,11 @@ package com.foodtrip;
 import java.io.Serializable;
 
 public class UserFav implements Serializable {
-	private int ID;
+	private	int ID;
 	private String origin;
 	private String dest;
-	private String rest;
-	private String loc;
+	private String restaurant;
+	private String location;
 	public int getID() {
 		return ID;
 	}
@@ -27,15 +27,19 @@ public class UserFav implements Serializable {
 		this.dest = dest;
 	}
 	public String getRest() {
-		return rest;
+		return restaurant;
 	}
 	public void setRest(String rest) {
-		this.rest = rest;
+		this.restaurant = rest;
 	}
 	public String getLoc() {
-		return loc;
+		return location;
 	}
 	public void setLoc(String loc) {
-		this.loc = loc;
+		this.location = loc;
+	}
+	public String toString() {
+	    return "{"+ID +" " + origin + dest + " " + restaurant +
+		       " " + location +"}";
 	}
 }
